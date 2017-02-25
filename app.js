@@ -17,9 +17,18 @@
 		};
 	});
 
-	app.controller('StoreController', function() {
-		this.products = gems;
-	});
+	app.controller('StoreController', ['$http', function($http){
+		var store = this;
+		store.products = [];
+
+		$http.get('/store-products.json').then(
+			function(response) {
+				console.log(response);
+				store.products = response.data;
+			}
+			);
+
+	}]);
 
 	app.controller("ReviewController", function(){
 
